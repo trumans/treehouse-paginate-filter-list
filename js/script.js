@@ -53,10 +53,10 @@ function filterList( listItems, pageNum, searchFilter ) {
 
   // Returns true if student matches search filter
   function studentMatchesSearch( student, searchFilter ) {
-    name = student.querySelector('h3').textContent;
-    email = student.querySelector('.email').textContent;
-    return ( name.indexOf(searchFilter) !== -1 ||
-             email.indexOf(searchFilter) !== -1 );
+    str = searchFilter.toLowerCase();
+    name = student.querySelector('h3').textContent.toLowerCase();
+    email = student.querySelector('.email').textContent.toLowerCase();
+    return ( name.indexOf(str) !== -1 || email.indexOf(str) !== -1 );
   }
 
   for (let idx = 0; idx < listItems.length; idx++ ) {
@@ -84,7 +84,7 @@ function filterList( listItems, pageNum, searchFilter ) {
 //   Un-highlight the currently highlighted page link
 //   Highlight the page link specified by parameter pageNum
 function setActivePageNumber( paginationUL, pageNum ) {
-  let link, newClass
+  let link, newClass;
   for ( let pageLI of paginationUL.children ) {
     link = pageLI.querySelector('a');
     newClass = '';
@@ -136,17 +136,19 @@ function createPaginationLinks( paginationUL, listSize, pageSize ) {
   let newPageCount = Math.ceil( listSize / pageSize );
   let links = paginationUL.children
 
+  function createLI( pageNum ) {
+    let newLI = document.createElement('li');
+    let newLink = document.createElement('a');
+    newLink.href = '#';
+    newLink.textContent = pageNum.toString();
+    newLI.appendChild(newLink);
+    return newLI;
+  }
+
   // append needed buttons
   if ( links.length < newPageCount ) {
-    let newLI;
-    let newLink;
     for ( let idx = links.length; idx < newPageCount; idx++ ) {
-      newLI = document.createElement('li');
-      newLink = document.createElement('a');
-      newLink.href = '#';
-      newLink.textContent = (idx + 1).toString();
-      newLI.appendChild(newLink);
-      paginationUL.appendChild(newLI);
+      paginationUL.appendChild(createLI(idx + 1));
     }
   }
   // remove unneeded button starting from the last
