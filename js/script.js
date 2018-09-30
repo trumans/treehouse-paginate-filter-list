@@ -110,6 +110,7 @@ function createSearchElements( parentElement ) {
     let input = document.createElement('input');
     input.type = 'text';
     input.placeholder = 'Search for students...';
+    input.style.marginRight = '5px';
     div.appendChild(input);
 
     let button = document.createElement('button');
@@ -141,6 +142,7 @@ function createPaginationLinks( paginationUL, listSize, pageSize ) {
     let newLink = document.createElement('a');
     newLink.href = '#';
     newLink.textContent = pageNum.toString();
+    newLink.style.marginRight = '4px';
     newLI.appendChild(newLink);
     return newLI;
   }
