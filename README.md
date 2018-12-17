@@ -1,6 +1,4 @@
-# treehouse-paginate-filter-list
-
-PRIMARY FEATURES
+# Primary Features #
 
 * List displays 10 names at a time with page# buttons for
 pagination.
